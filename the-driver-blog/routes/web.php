@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/publications', 'PublicationController@show');
+Route::get('/publication/{id}', 'PublicationController@showByID');
+Route::post('/addPublication', 'PublicationController@create');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/createResponse/{id}', 'ResponseController@edit');
+Route::post('/addResponse', 'ResponseController@create');
