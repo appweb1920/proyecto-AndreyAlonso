@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use  App\Publications;
+use Illuminate\Support\Facades\Storage;
 
 class PublicationController extends Controller
 {
@@ -27,9 +28,12 @@ class PublicationController extends Controller
     }
 
     public function create(Request $request){
+//        $request->validate([
+//            'file' => 'required|image'
+//        ]);
         $publication = new Publications;
         $publication->title = $request->title;
-        $publication->image = "imagen.jpg";
+        $publication->image = $request->file('image')->store('public/imagenes');
 
         $exist = DB::table('publications')->select('id')
             ->where('title','=', $publication->title)
@@ -37,6 +41,7 @@ class PublicationController extends Controller
         if($exist){
             return redirect()->back();
         }
+        $url = Storage::url($publication->image);
         $publication->save();
         return redirect('publications');
     }

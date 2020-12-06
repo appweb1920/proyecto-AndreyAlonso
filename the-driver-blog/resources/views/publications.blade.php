@@ -34,7 +34,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="form-inline justify-content-center" method="POST" action="/addPublication">
+                <form class="form-inline justify-content-center" method="POST" action="/addPublication" enctype="multipart/form-data">
                     <div class="modal-body">
                         @csrf
                         <div class="form-group row">
@@ -45,7 +45,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Imagen</label>
-                            <input type="file" class="form-control-file col-sm-2 mb-2 mt-2 col-form-label" id="image" name="image">
+                            <input type="file" class="form-control-file col-sm-2 mb-2 mt-2 col-form-label" id="image" name="image" accept="image/*">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -59,15 +59,17 @@
 
 </nav>
 <div class="container pt-4 ">
+    @error('file')
+    <p class="alert alert-danger">{{$message}}</p>
+    @enderror
     <div class="row justify-content-center">
+
         @if(!is_null($publications))
             @foreach($publications as $p)
                 <div class="card mr-2 mb-2" style="width: 18rem;">
-                    <img src="{{$p->image}}" class="card-img-top" alt="...">{{$p->image}}
+                    <img src="{{Storage::url($p->image)}}" height="150px" width="200px" class="rounded mx-auto d-block">
                     <div class="card-body">
                         <h3 class="card-title text-info">{{$p->title}}</h3>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
                         <a href="../publication/{{$p->id}}" class="btn btn-info">Ver más</a>
                     </div>
                 </div>

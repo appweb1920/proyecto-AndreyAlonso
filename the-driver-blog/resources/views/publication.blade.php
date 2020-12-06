@@ -18,11 +18,22 @@
 
 <div class="container">
     @csrf
+    <nav></nav>
     @if(!is_null($p))
-        <h1 class="text-center"><b>{{$p->title}}</b></h1>
-        <div>{{$p->image}}</div>
+        <h1 class="text-center mt-5"><b>{{$p->title}}</b></h1>
+        <div class="row">
+            <div class="column">
+                <img src="{{Storage::url($p->image)}}" height="150px" width="200px">
+            </div>
+            <div class="column pl-5 mt-4">
+                <p>Likes: {{$p->likes}}</p>
+                <p>Fecha de creación: {{$p->created_at}}</p>
+            </div>
+        </div>
+        <br>
         <a class="btn btn-success" href="/publications">Volver</a>
         <a class="btn btn-info" href="/createResponse/{{$p->id}}">Crear respuesta</a>
+        <a class="btn btn-info" href="/createResponse/{{$p->id}}">Me gusta <img alt="yes" src="http://127.0.0.1:8000/vendors/ckeditor/plugins/smiley/images/thumbs_up.png" style="height:23px; width:23px" title="yes" /></a>
     @endif
     <hr>
     @if(!is_null($responses))
@@ -43,6 +54,10 @@
             <hr>
         @endforeach
     @endif
+    @if(count($responses) == 0)
+        <p class="alert alert-warning"><b>No hay respuestas</b></p>
+    @endif
+
 </div>
 <!-- Optional JavaScript; choose one of the two! -->
 
