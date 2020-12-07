@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!doctype html>
 <html lang="en">
 
@@ -13,10 +14,17 @@
 
     <title>Publicaciones</title>
 </head>
-
-    <p>{{$p->image}}</p>
 <div class="container">
-    <h1 class="text-center"><b>{{$p->title}}</b></h1>
+    <h1 class="text-center mt-5"><b>{{$p->title}}</b></h1>
+    <div class="row">
+        <div class="column">
+            <img src="{{Storage::url($p->image)}}" height="150px" width="200px">
+        </div>
+        <div class="column pl-5 mt-4">
+            <p>Likes: {{$p->likes}}</p>
+            <p>Fecha de creación: {{$p->created_at}}</p>
+        </div>
+    </div>
     <hr>
 
     <form action="/addResponse" method="POST">

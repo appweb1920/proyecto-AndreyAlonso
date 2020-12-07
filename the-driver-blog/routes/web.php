@@ -23,3 +23,15 @@ Route::post('/addPublication', 'PublicationController@create');
 
 Route::get('/createResponse/{id}', 'ResponseController@edit');
 Route::post('/addResponse', 'ResponseController@create');
+
+Route::get('/deleteResponse/{id}', 'ResponseController@delete');
+Route::get('/addLike/{id}', 'ResponseController@addLike');
+Route::get('/removeLike/{id}', 'ResponseController@removeLike');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

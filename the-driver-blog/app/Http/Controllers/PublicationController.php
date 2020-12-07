@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use  App\Publications;
@@ -17,12 +18,14 @@ class PublicationController extends Controller
     public function showByID(Request  $request){
         $publication = Publications::find($request->id);
         $publications = Publications::all();
-        $psqlGetBypublicationID = "SELECT r.id, description, name, publication_id, likes, is_approved, r.created_at FROM responses r INNER JOIN users u ON u.id = r.user_id WHERE publication_id = $publication->id ORDER BY likes DESC";
-        $responses =  DB::select($psqlGetBypublicationID);
+        $psqlGetBypublicationID = 'SELECT r.id, r.user_id, description, u.name, r.publication_id, r.likes, r.is_approved, r.created_at
+                                    FROM responses r INNER JOIN users u ON r.user_id = u.id WHERE r.publication_id = ? ORDER BY likes DESC';
+        $responses =  DB::select($psqlGetBypublicationID,[$publication->id]);
 
-
+        $psqlGetUserLikes = 'SELECT response_id FROM user_responses_likes WHERE user_id = ?';
+        $userLikes = DB::select($psqlGetUserLikes, [Auth::user()->id]);
         if(!is_null($publication)) {
-            return view('publication')->with('p', $publication)->with('responses', $responses);
+            return view('publication')->with('p', $publication)->with('responses', $responses)->with('userLikes', $userLikes);
         }
         return redirect('publications');
     }
