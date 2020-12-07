@@ -15,7 +15,7 @@
     <title>Publicación</title>
 </head>
 
-<body>
+<body class="bg-light">
 
 <div class="container">
     @csrf
@@ -32,15 +32,22 @@
             </div>
         </div>
         <br>
-        <a class="btn btn-success" href="/publications">Volver</a>
-        <a class="btn btn-info" href="/createResponse/{{$p->id}}">Crear respuesta</a>
-        <a class="btn btn-primary" href="/createResponse/{{$p->id}}">Me gusta <img alt="yes" src="http://127.0.0.1:8000/vendors/ckeditor/plugins/smiley/images/thumbs_up.png" style="height:23px; width:23px" title="yes" /></a>
+        <a class="btn btn-success" href="/publications" ><i class="fas fa-arrow-left text-white fa-1x"></i>
+        </a>
+        <a class="btn btn-info" href="/createResponse/{{$p->id}}"><i class="fas fa-plus text-white fa-1x"></i></a>
+        <a class="btn btn-info" href="/createResponse/{{$p->id}}"><i class="fas fa-pen-square text-white fa-1x"></i></a>
+        <a class="btn btn-primary" href="/createResponse/{{$p->id}}"><i class="fas fa-thumbs-up text-white fa-1x"></i></a>
     @endif
     <hr>
     @if(!is_null($responses))
         @foreach($responses as $r)
             <div class="card">
-                <div class="card-header"><i class="fas fa-user-circle text-primary"></i>&nbsp;<b>{!! $r->name !!}</b></div>
+                <div class="card-header">
+                        <i class="fas fa-user-circle text-primary"></i>&nbsp;<b>{!! $r->name !!}</b> &nbsp;
+                    @if($r->is_approved ==true)
+                        <i class="fas fa-shield-alt text-warning fa-1x"></i>
+                        @endif
+                </div>
                 <div class="card-body">
                     <blockquote class=" mb-0">
                         {!! $r->description !!}
@@ -58,14 +65,20 @@
                         @endif
                     @endforeach
                     @if($existe == false)
-                        <a href="/addLike/{{$r->id}}" class="btn btn-outline-primary btn-sm">Me gusta</a>
+                            <a href="/addLike/{{$r->id}}" class="btn btn-outline-primary btn-sm"><i class="fas fa-thumbs-up  fa-1x"></i> </a>
                     @else
-                        <a href="/removeLike/{{$r->id}}" class="btn btn-outline-danger btn-sm">No me gusta</a>
+                        <a href="/removeLike/{{$r->id}}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up text-white fa-1x"></i> </a>
                     @endif
-                    @if($r->user_id == Auth::user()->id)
-                        <a href="/deleteResponse/{{$r->id}}" class="btn btn-outline-danger btn-sm">Eliminar</a>
+                    @if($r->user_id == Auth::user()->id || Auth::user()->user_type == 1)
+                        <a href="/deleteResponse/{{$r->id}}" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash fa-1x"></i></a>
                     @endif
-                    <a class="btn btn-outline-success btn-sm">Aprovar</a>
+                    @if(Auth::user()->user_type == 1)
+                        @if($r->is_approved ==true )
+                        <a class="btn btn-warning btn-sm"><i class="fas fa-shield-alt text-white fa-1x"></i></a>
+                        @else
+                        <a class="btn btn-outline-warning btn-sm"><i class="fas fa-shield-alt fa-1x"></i></a>
+                            @endif
+                        @endif
                     </div>
                 </div>
             </div>

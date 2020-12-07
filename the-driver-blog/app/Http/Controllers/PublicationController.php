@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Storage;
 
 class PublicationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function show(){
         $publications = Publications::all()->sortByDesc('likes');
         return view('publications')->with('publications', $publications);

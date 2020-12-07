@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+Auth::routes();
+
+Route::get('/home', 'PublicationController@show');//->name('home');
 Route::get('/publications', 'PublicationController@show');
 Route::get('/publication/{id}', 'PublicationController@showByID');
 Route::post('/addPublication', 'PublicationController@create');
@@ -30,8 +35,4 @@ Route::get('/removeLike/{id}', 'ResponseController@removeLike');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');

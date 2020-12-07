@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!doctype html>
 <html lang="en">
 
@@ -9,17 +10,19 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/1dfd1c28fd.js" crossorigin="anonymous"></script>
 
     <title>Publicaciones</title>
 </head>
 
-<body>
+<body class="bg-light">
 @csrf
-<nav class="navbar navbar-light bg-dark justify-content-center pb-4 pt-4 form-inline">
+<nav class="navbar navbar-light justify-content-center pb-4 pt-4 form-inline">
+    <i class="fas fa-car text-info fa-3x"></i>&nbsp; &nbsp;
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+{{--    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--}}
     <!-- Button trigger modal -->
-    <button class="btn btn-outline-success my-2 my-sm-0 ml-2" type="button" data-toggle="modal"
+    <button class="btn btn-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal"
             data-target="#exampleModal">
         Crear publicación
     </button>

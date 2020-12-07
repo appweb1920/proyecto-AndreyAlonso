@@ -1,0 +1,2 @@
+ALTER TABLE users
+    ADD user_type INTEGER NOT NULL DEFAULT 0;
