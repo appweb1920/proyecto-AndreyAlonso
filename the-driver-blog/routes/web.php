@@ -13,14 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 
 
 Auth::routes();
 
+Route::get('/', 'PublicationController@show');
 Route::get('/home', 'PublicationController@show');//->name('home');
 Route::get('/publications', 'PublicationController@show');
 Route::get('/publication/{id}', 'PublicationController@showByID');
@@ -32,6 +33,8 @@ Route::post('/addResponse', 'ResponseController@create');
 Route::get('/deleteResponse/{id}', 'ResponseController@delete');
 Route::get('/addLike/{id}', 'ResponseController@addLike');
 Route::get('/removeLike/{id}', 'ResponseController@removeLike');
+Route::get('/addApprove/{id}', 'ResponseController@addApprove');
+Route::get('/removeApprove/{id}', 'ResponseController@removeApprove');
 
 Auth::routes();
 

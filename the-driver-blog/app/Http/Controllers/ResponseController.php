@@ -58,6 +58,21 @@ class ResponseController extends Controller
         return redirect()->action('PublicationController@showByID',$response->publication_id);
 
     }
+    public function addApprove(Request $request){
+        $response = Responses::find($request->id);
+        $response->is_approved = true;
+        $response->updated_at = now();
+        $response->save();
+        return redirect()->action('PublicationController@showByID',$response->publication_id);
+    }
+
+    public function removeApprove(Request $request) {
+        $response = Responses::find($request->id);
+        $response->is_approved = false;
+        $response->updated_at = now();
+        $response->save();
+        return redirect()->action('PublicationController@showByID',$response->publication_id);
+    }
 
     public function removeLike(Request $request){
         $response = Responses::find($request->id);

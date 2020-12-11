@@ -54,7 +54,7 @@
                     </blockquote>
                     <hr>
                     <div class="text-right">
-                    <p>likes: <b class="text-info">{!! $r->likes !!}</b> Aprobado: {!! $r->is_approved !!} </p>
+                    <p>Likes: <b class="text-info">{!! $r->likes !!}</b> </p>
                         @php $existe = false; @endphp
                     @foreach($userLikes as $ul)
                         @if($ul->response_id == $r->id)
@@ -74,9 +74,9 @@
                     @endif
                     @if(Auth::user()->user_type == 1)
                         @if($r->is_approved ==true )
-                        <a class="btn btn-warning btn-sm"><i class="fas fa-shield-alt text-white fa-1x"></i></a>
+                        <a href="/removeApprove/{{$r->id}}" class="btn btn-warning btn-sm"><i class="fas fa-shield-alt text-white fa-1x"></i></a>
                         @else
-                        <a class="btn btn-outline-warning btn-sm"><i class="fas fa-shield-alt fa-1x"></i></a>
+                        <a href="/addApprove/{{$r->id}}" class="btn btn-outline-warning btn-sm"><i class="fas fa-shield-alt fa-1x"></i></a>
                             @endif
                         @endif
                     </div>

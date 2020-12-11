@@ -23,7 +23,7 @@ class PublicationController extends Controller
         $publication = Publications::find($request->id);
         $publications = Publications::all();
         $psqlGetBypublicationID = 'SELECT r.id, r.user_id, description, u.name, r.publication_id, r.likes, r.is_approved, r.created_at
-                                    FROM responses r INNER JOIN users u ON r.user_id = u.id WHERE r.publication_id = ? ORDER BY likes DESC';
+                                    FROM responses r INNER JOIN users u ON r.user_id = u.id WHERE r.publication_id = ? ORDER BY is_approved DESC, likes DESC';
         $responses =  DB::select($psqlGetBypublicationID,[$publication->id]);
 
         $psqlGetUserLikes = 'SELECT response_id FROM user_responses_likes WHERE user_id = ?';
