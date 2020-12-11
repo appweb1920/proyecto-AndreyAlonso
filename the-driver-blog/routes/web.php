@@ -26,6 +26,9 @@ Route::get('/home', 'PublicationController@show');//->name('home');
 Route::get('/publications', 'PublicationController@show');
 Route::get('/publication/{id}', 'PublicationController@showByID');
 Route::post('/addPublication', 'PublicationController@create');
+Route::get('/addLikePublication/{id}', 'PublicationController@addLike');
+Route::get('/removeLikePublication/{id}', 'PublicationController@removeLike');
+Route::get('/deletePublication/{id}', 'PublicationController@delete');
 
 Route::get('/createResponse/{id}', 'ResponseController@edit');
 Route::post('/addResponse', 'ResponseController@create');

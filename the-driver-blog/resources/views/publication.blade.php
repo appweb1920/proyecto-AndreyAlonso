@@ -35,8 +35,24 @@
         <a class="btn btn-success" href="/publications" ><i class="fas fa-arrow-left text-white fa-1x"></i>
         </a>
         <a class="btn btn-info" href="/createResponse/{{$p->id}}"><i class="fas fa-plus text-white fa-1x"></i></a>
-        <a class="btn btn-info" href="/createResponse/{{$p->id}}"><i class="fas fa-pen-square text-white fa-1x"></i></a>
-        <a class="btn btn-primary" href="/createResponse/{{$p->id}}"><i class="fas fa-thumbs-up text-white fa-1x"></i></a>
+{{--        <a class="btn btn-info" href="/createResponse/{{$p->id}}"><i class="fas fa-pen-square text-white fa-1x"></i></a>--}}
+        @php $existeLike = false; @endphp
+        @foreach($userLikePublications as $up)
+            @if($up->publication_id == $p->id)
+                @php $existeLike = true; @endphp
+                @break
+            @else
+                @php $existeLike = false; @endphp
+            @endif
+        @endforeach
+        @if($existeLike == false)
+            <a class="btn btn-outline-primary" href="/addLikePublication/{{$p->id}}"><i class="fas fa-thumbs-up fa-1x"></i></a>
+        @else
+            <a class="btn btn-primary" href="/removeLikePublication/{{$p->id}}"><i class="fas fa-thumbs-up text-white fa-1x"></i></a>
+        @endif
+        @if(Auth::user()->user_type == 1 || Auth::user()->id == $p->user_id)
+                <a href="/deletePublication/{{$p->id}}" class="btn btn-danger" type="submit"><i class="fas fa-trash-alt fa-1x"></i></a>
+        @endif
     @endif
     <hr>
     @if(!is_null($responses))

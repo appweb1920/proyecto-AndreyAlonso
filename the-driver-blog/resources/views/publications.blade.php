@@ -19,7 +19,7 @@
 @csrf
 <nav class="navbar navbar-light justify-content-center pb-4 pt-4 form-inline">
     <i class="fas fa-car text-info fa-3x"></i>&nbsp; &nbsp;
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+{{--    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">--}}
 {{--    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--}}
     <!-- Button trigger modal -->
     <button class="btn btn-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal"
