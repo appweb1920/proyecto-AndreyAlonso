@@ -15,27 +15,44 @@
     <title>Publicaciones</title>
 </head>
 <div class="container">
-    <h1 class="text-center mt-5"><b>{{$p->title}}</b></h1>
-    <div class="row">
-        <div class="column">
-            <img src="{{Storage::url($p->image)}}" height="150px" width="200px">
+    @if(!is_null($p))
+        <h1 class="text-center mt-5"><b>{{$p->title}}</b></h1>
+        <div class="row">
+            <div class="column">
+                <img src="{{Storage::url($p->image)}}" height="150px" width="200px">
+            </div>
+            <div class="column pl-5 mt-4">
+                <p>Likes: {{$p->likes}}</p>
+                <p>Fecha de creación: {{$p->created_at}}</p>
+            </div>
         </div>
-        <div class="column pl-5 mt-4">
-            <p>Likes: {{$p->likes}}</p>
-            <p>Fecha de creación: {{$p->created_at}}</p>
-        </div>
-    </div>
-    <hr>
-
-    <form action="/addResponse" method="POST">
+        <hr>
+    @endif
+    @if(is_null($r))
+        <form action="/addResponse" method="POST">
+    @else
+        <form action="/updateResponse" method="POST">
+    @endif
         @csrf
-    <textarea class="ckeditor" name="description" rows="10" cols="80"></textarea>
+    <textarea class="ckeditor" name="description" rows="10" cols="80">
+        @if(!is_null($r))
+            {!! $r->description !!}
+        @endif
+    </textarea>
         <a class="btn btn-danger mt-2" href="/publication/{{$p->id}}">Cancelar</a>
         <input type="text" name="publication_id" id="" value="{{$p->id}}" hidden>
-        <button class="btn btn-info mt-2" type="submit">Agregar respuesta</button>
-    </form>
+            @if(is_null($r))
 
+                <button class="btn btn-info mt-2" type="submit">Agregar respuesta</button>
+                </form>
+
+            @else
+                    <input type="text" name="id" id="" value="{{$r->id}}" hidden>
+                    <button class="btn btn-warning mt-2" type="submit">Actualizar respuesta</button>
+                </form>
+            @endif
 </div>
+<br>
 
 <body>
 

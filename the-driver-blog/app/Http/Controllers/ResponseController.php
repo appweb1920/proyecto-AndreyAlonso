@@ -34,11 +34,34 @@ class ResponseController extends Controller
         return redirect()->action('PublicationController@showByID',$response->publication_id);
     }
 
+    public function update(Request $request) {
+        $user = Auth::user();
+        $response = Responses::find($request->id);
+        $response->description = $request->description;
+        $response->publication_id = $request->publication_id;
+        $response->user_id = $user->id;
+
+        $response->save();
+
+        return redirect()->action('PublicationController@showByID',$response->publication_id);
+    }
+
     public function edit(Request $request) {
         $publication = Publications::find($request->id);
 
         return view('createResponse')
-            ->with('p', $publication);
+            ->with('p', $publication)
+            ->with('r', null);
+    }
+
+    public function editWithID(Request $request) {
+        $response = Responses::find($request->id);
+        $publication = Publications::find($response->publication_id);
+
+        return view('createResponse')
+            ->with('p', $publication)
+            ->with('r', $response);
+
     }
 
     public function delete(Request $request){
@@ -48,6 +71,7 @@ class ResponseController extends Controller
 
         return redirect()->action('PublicationController@showByID',$id);
     }
+
 
     public function addLike(Request $request){
         $response = Responses::find($request->id);
